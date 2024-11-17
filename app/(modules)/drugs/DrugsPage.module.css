@@ -1,0 +1,15 @@
+.container {
+  @apply p-8 max-w-screen-2xl mx-auto;
+}
+
+.heading {
+  @apply text-3xl font-bold mb-6 p-8;
+}
+
+.loadingText {
+  @apply text-center mt-6;
+}
+
+.errorText {
+  @apply text-center mt-6 text-red-500;
+}

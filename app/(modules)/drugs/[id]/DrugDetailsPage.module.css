@@ -1,0 +1,15 @@
+.container {
+  @apply flex items-center justify-center h-screen;
+}
+
+.loadingText {
+  @apply text-lg text-gray-500;
+}
+
+.errorText {
+  @apply text-red-500 text-lg;
+}
+
+.notFoundText {
+  @apply text-lg text-gray-500;
+}

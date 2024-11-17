@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Aspirin",
+    "status": "Approved",
+    "description": "Used to reduce pain, fever, or inflammation.",
+    "mechanismOfAction": "Inhibits cyclooxygenase enzyme.",
+    "sideEffects": ["Nausea", "Bleeding", "Stomach ulcers"]
+  },
+  {
+    "id": "2",
+    "name": "Ibuprofen",
+    "status": "Approved",
+    "description": "Reduces fever and treats pain or inflammation.",
+    "mechanismOfAction": "Non-selective inhibitor of COX-1 and COX-2.",
+    "sideEffects": ["Dizziness", "Headache", "Nausea"]
+  },
+  {
+    "id": "3",
+    "name": "Metformin",
+    "status": "In Development",
+    "description": "Used to treat type 2 diabetes.",
+    "mechanismOfAction": "Decreases hepatic glucose production.",
+    "sideEffects": ["Diarrhea", "Nausea", "Vitamin B12 deficiency"]
+  },
+  {
+    "id": "4",
+    "name": "Atorvastatin",
+    "status": "Approved",
+    "description": "Used to lower cholesterol levels.",
+    "mechanismOfAction": "Inhibits HMG-CoA reductase enzyme.",
+    "sideEffects": ["Muscle pain", "Liver issues", "Diarrhea"]
+  },
+  {
+    "id": "5",
+    "name": "Hydroxychloroquine",
+    "status": "In Development",
+    "description": "Used for treating malaria and autoimmune diseases.",
+    "mechanismOfAction": "Inhibits parasite growth by increasing pH.",
+    "sideEffects": ["Headache", "Nausea", "Vision issues"]
+  }
+]
