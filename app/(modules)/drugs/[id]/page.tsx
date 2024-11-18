@@ -12,7 +12,9 @@ export default function DrugDetailsPage() {
   if (isLoading) {
     return (
       <div className={styles.container}>
-        <p className={styles.loadingText}>Loading drug details...</p>
+        <p className={styles.loadingText} data-testid="loading">
+          Loading drug details...
+        </p>
       </div>
     );
   }
@@ -20,7 +22,9 @@ export default function DrugDetailsPage() {
   if (error) {
     return (
       <div className={styles.container}>
-        <p className={styles.errorText}>Error: {error.message}</p>
+        <p className={styles.errorText} data-testid="error">
+          Error: {error.message}
+        </p>
       </div>
     );
   }
@@ -28,7 +32,9 @@ export default function DrugDetailsPage() {
   if (!drug) {
     return (
       <div className={styles.container}>
-        <p className={styles.notFoundText}>Drug not found</p>
+        <p className={styles.notFoundText} data-testid="not-found">
+          Drug not found
+        </p>
       </div>
     );
   }
