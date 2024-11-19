@@ -3,9 +3,9 @@ import drugsData from "@/app/api/data/mock-drugs.json";
 
 export async function GET(
   request: Request,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = context.params;
+  const { id } = params;
 
   const drug = drugsData.find((drug) => drug.id === id);
 
