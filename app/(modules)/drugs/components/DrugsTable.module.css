@@ -6,16 +6,8 @@
   @apply mb-4 flex justify-between items-center;
 }
 
-.input {
-  @apply border px-4 py-2 rounded-lg w-full max-w-sm;
-}
-
-.select {
-  @apply border px-4 py-2 rounded-lg;
-}
-
 .resetButton {
-  @apply px-4 py-2 rounded-lg text-white;
+  @apply px-4 py-2 rounded-lg text-white w-[160px];
 }
 
 .resetButtonEnabled {
@@ -31,7 +23,7 @@
 }
 
 .table {
-  @apply min-w-full bg-white border border-gray-300 shadow rounded-lg;
+  @apply min-w-full bg-white border border-gray-300 shadow;
 }
 
 .tableHead {
@@ -46,14 +38,6 @@
   @apply py-3 px-6 text-left;
 }
 
-.statusApproved {
-  @apply px-3 py-1 rounded-full text-xs bg-green-100 text-green-800;
-}
-
-.statusInDevelopment {
-  @apply px-3 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800;
-}
-
 .moreInfo {
-  @apply text-blue-500 hover:underline;
+  @apply text-primary font-semibold hover:underline;
 }

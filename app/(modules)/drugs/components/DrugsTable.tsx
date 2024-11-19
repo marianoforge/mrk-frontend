@@ -3,6 +3,11 @@
 import styles from "./DrugsTable.module.css"; // Importa el CSS Module
 import { DrugsTableProps } from "@/app/(modules)/drugs/types";
 import PaginationControls from "./PaginationControls";
+import { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import Input from "@/app/common/components/Input";
+import Select from "@/app/common/components/Select";
+import Button from "@/app/common/components/Button";
+import StatusChip from "@/app/common/components/StatusChip";
 
 export default function DrugsTable({
   drugs,
@@ -19,49 +24,72 @@ export default function DrugsTable({
   search,
   setSearch,
 }: DrugsTableProps): React.ReactNode {
-  const handleSort = (field: string) => {
-    if (sortField === field) {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    } else {
-      setSortField(field);
-      setSortOrder("asc");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useEffect(() => {
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
     }
-  };
+  }, [search]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearch(debouncedSearch);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [debouncedSearch, setSearch]);
+
+  const handleSort = useCallback(
+    (field: string) => {
+      if (sortField === field) {
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+      } else {
+        setSortField(field);
+        setSortOrder("asc");
+      }
+    },
+    [sortField, sortOrder, setSortField, setSortOrder]
+  );
+
+  const statusOptions = useMemo(() => ["Approved", "In Development"], []);
 
   return (
     <div className={styles.container}>
-      {/* Header */}
       <div className={styles.headerContainer}>
-        <input
+        <Input
+          ref={searchInputRef}
           type="text"
-          value={search || ""}
-          onChange={(e) => setSearch(e.target.value || "")}
+          value={debouncedSearch || ""}
+          onChange={(e) => setDebouncedSearch(e.target.value || "")}
           placeholder="Search by name"
-          className={styles.input}
         />
-        <select
+        <Select
           value={filter || ""}
           onChange={(e) => setFilter(e.target.value || "")}
-          className={styles.select}
         >
-          <option value="">All Status</option>
-          <option value="Approved">Approved</option>
-          <option value="In Development">In Development</option>
-        </select>
-        <button
+          {statusOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </Select>
+        <Button
           onClick={resetFilters}
           disabled={!filter && !sortField && !sortOrder}
-          className={`${styles.resetButton} ${
+          className={
             !filter && !sortField && !sortOrder
               ? styles.resetButtonDisabled
               : styles.resetButtonEnabled
-          }`}
+          }
         >
           Reset Filters
-        </button>
+        </Button>
       </div>
 
-      {/* Table */}
       <div className={styles.tableWrapper}>
         <table className={styles.table}>
           <thead>
@@ -83,15 +111,7 @@ export default function DrugsTable({
               <tr key={drug.id} className={styles.tableRow}>
                 <td className={styles.cell}>{drug.name}</td>
                 <td className={styles.cell}>
-                  <span
-                    className={
-                      drug.status === "Approved"
-                        ? styles.statusApproved
-                        : styles.statusInDevelopment
-                    }
-                  >
-                    {drug.status}
-                  </span>
+                  <StatusChip status={drug.status} />
                 </td>
                 <td className={styles.cell}>{drug.description}</td>
                 <td className={styles.cell}>
@@ -112,7 +132,6 @@ export default function DrugsTable({
         </table>
       </div>
 
-      {/* Pagination */}
       <PaginationControls
         currentPage={currentPage}
         totalPages={totalPages}

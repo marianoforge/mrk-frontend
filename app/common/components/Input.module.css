@@ -1,0 +1,3 @@
+.input {
+  @apply border px-4 py-2 rounded-lg w-[240px] max-w-sm;
+}

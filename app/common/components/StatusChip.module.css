@@ -1,0 +1,7 @@
+.statusApproved {
+  @apply px-3 py-1 rounded-full text-xs bg-primary text-white;
+}
+
+.statusInDevelopment {
+  @apply px-3 py-1 rounded-full text-xs bg-tertiary text-white;
+}

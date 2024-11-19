@@ -3,7 +3,7 @@
 }
 
 .heading {
-  @apply text-3xl font-bold mb-6 p-8;
+  @apply text-3xl font-bold p-8;
 }
 
 .loadingText {

@@ -46,4 +46,5 @@ export interface DrugDetails {
   description: string;
   mechanismOfAction: string;
   sideEffects: string[];
+  isLoading: boolean;
 }

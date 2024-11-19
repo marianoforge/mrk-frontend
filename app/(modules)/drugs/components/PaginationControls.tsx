@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./PaginationControls.module.css";
+import Button from "@/app/common/components/Button";
 
 interface PaginationControlsProps {
   currentPage: number;
@@ -12,22 +13,30 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
   totalPages,
   setCurrentPage,
 }) => {
+  const handlePrevious = useCallback(() => {
+    setCurrentPage(Math.max(currentPage - 1, 1));
+  }, [currentPage, setCurrentPage]);
+
+  const handleNext = useCallback(() => {
+    setCurrentPage(Math.min(currentPage + 1, totalPages));
+  }, [currentPage, totalPages, setCurrentPage]);
+
   return (
     <div className={styles.container}>
-      <button
-        onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+      <Button
+        onClick={handlePrevious}
         disabled={currentPage === 1}
         className={`${styles.button} ${
           currentPage === 1 ? styles.buttonDisabled : styles.buttonEnabled
         }`}
       >
         Previous
-      </button>
+      </Button>
       <p className={styles.pageInfo}>
         Page {currentPage} of {totalPages}
       </p>
-      <button
-        onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+      <Button
+        onClick={handleNext}
         disabled={currentPage === totalPages}
         className={`${styles.button} ${
           currentPage === totalPages
@@ -36,7 +45,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
         }`}
       >
         Next
-      </button>
+      </Button>
     </div>
   );
 };
