@@ -63,6 +63,16 @@ export default function DrugsTable({
     []
   );
 
+  const filteredDrugs = useMemo(() => {
+    return drugs.filter((drug) => {
+      return (
+        (!filter || drug.status === filter) &&
+        (!debouncedSearch ||
+          drug.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
+      );
+    });
+  }, [drugs, filter, debouncedSearch]);
+
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
@@ -77,6 +87,7 @@ export default function DrugsTable({
           value={filter || ""}
           onChange={(e) => setFilter(e.target.value || "")}
         >
+          <option value="">Filter by status</option>
           {statusOptions.map((option) => (
             <option key={option} value={option}>
               {option}
@@ -116,7 +127,7 @@ export default function DrugsTable({
             </tr>
           </thead>
           <tbody>
-            {drugs.map((drug) => (
+            {filteredDrugs.map((drug) => (
               <tr key={drug.id} className={styles.tableRow}>
                 <td className={styles.cell}>{drug.name}</td>
                 <td className={styles.cell}>

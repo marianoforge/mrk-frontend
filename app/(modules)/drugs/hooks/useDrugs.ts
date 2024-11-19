@@ -9,7 +9,8 @@ export const useDrugs = ({
   sortOrder = null,
   filter = null,
   search = null,
-}: UseDrugsOptions) => {
+  enabled = true,
+}: UseDrugsOptions & { enabled?: boolean }) => {
   return useQuery<UseDrugsResponse>({
     queryKey: [
       "drugs",
@@ -33,5 +34,6 @@ export const useDrugs = ({
       return res.json();
     },
     staleTime: 1000 * 60 * 5,
+    enabled, // Usar el nuevo parámetro para controlar la ejecución
   });
 };

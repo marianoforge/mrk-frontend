@@ -11,11 +11,12 @@ import { Drug } from "./types";
 
 export default function DrugsPage() {
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState<string | null>(null);
+  const [filter, setFilter] = useState<string | null>(null); // Actual filter for the query
   const [sortField, setSortField] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
   const [search, setSearch] = useState<string | null>(null);
   const [filteredData, setFilteredData] = useState<Drug[]>([]);
+  const [isFiltered, setIsFiltered] = useState(false); // Flag for filter application
 
   const limit = 5;
   const offset = (page - 1) * limit;
@@ -26,16 +27,22 @@ export default function DrugsPage() {
     sortField,
     sortOrder,
     filter,
+    search,
+    enabled: isFiltered || !filteredData.length,
   });
 
   useEffect(() => {
     if (data) {
-      const filtered = data.data.filter((drug: Drug) =>
-        drug.name.toLowerCase().includes(search?.toLowerCase() || "")
-      );
-      setFilteredData(filtered);
+      if (!isFiltered) {
+        setFilteredData(data.data);
+      } else {
+        const filtered = data.data.filter((drug: Drug) =>
+          drug.name.toLowerCase().includes(search?.toLowerCase() || "")
+        );
+        setFilteredData(filtered);
+      }
     }
-  }, [data, search]);
+  }, [data, search, isFiltered]);
 
   const resetFilters = () => {
     setFilter(null);
@@ -43,6 +50,7 @@ export default function DrugsPage() {
     setSortOrder(null);
     setPage(1);
     setSearch(null);
+    setIsFiltered(false); // Reset filter flag
   };
 
   const totalPages = filteredData
@@ -66,11 +74,11 @@ export default function DrugsPage() {
           sortOrder={sortOrder}
           setSortField={setSortField}
           setSortOrder={setSortOrder}
-          setFilter={setFilter}
           filter={filter || ""}
           resetFilters={resetFilters}
           search={search || ""}
           setSearch={setSearch}
+          setFilter={setFilter}
         />
       )}
     </div>
