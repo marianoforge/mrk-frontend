@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Drugs Management App
 
-## Getting Started
+The Drugs Management application is a comprehensive solution for managing drug data, designed to facilitate the consultation, organization, and visualization of pharmaceutical information. This application is built using React and React Query, providing a modern user interface and efficient state management.
 
-First, run the development server:
+## Table of Contents
+
+- [Drugs Management App](#drugs-management-app)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Project Structure](#project-structure)
+  - [Testing](#testing)
+  - [Deployment](#deployment)
+  - [Contact](#contact)
+
+## Features
+
+- **Drug Consultation**: Uses the `useDrugs` hook to fetch drug data with pagination, sorting, and filtering options.
+- **Modern User Interface**: Built with React components, providing an intuitive and responsive user experience.
+- **Efficient State Management**: React Query handles the state management of data requests, improving performance and user experience.
+
+## Technologies Used
+
+- **Frontend**: NextJs 15.03, React Query, CSS Modules
+- **Backend**: Nextjs 15.03
+- **Database**: mock-drugs.json file
+- **Development Tools**: ESLint, Prettier
+
+## Prerequisites
+
+- Node.js (version 18 or higher)
+- npm or yarn
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/marianoforge/mrk-frontend
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd mrk-frontend
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+## Usage
+
+To start the application in development mode:
 
 ```bash
-npm run dev
+npm start
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/`: Contains the application's source code.
+  - `(modules)/drugs`: Drugs module.
+  - `(modules)/drugs/[id]`: Drug details page.
+  - `(modules)/drugs/hooks/`: Module's Hooks
+  - `(modules)/drugs/tests/`: Module's Tests
+  - `(modules)/drugs/types/`: Module's Types
+  - `(modules)/drugs/utils/`: Module's Utils
+  - `api/data/`: API mocked database.
+  - `api/drugs/`: API drugs route.
+  - `common/components/`: Common components.
+  - `common/enums/`: Common enumerations used in the application.
 
-## Learn More
+## Testing
 
-To learn more about Next.js, take a look at the following resources:
+To run the tests, use the following command:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm test
+# or
+yarn test
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This will execute the test suite and provide feedback on the application's functionality and performance.
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To deploy the application, follow these steps:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Build the application for production:
+
+   ```bash
+   npm run build
+   # or
+   yarn build
+   ```
+
+   This will create a `build` directory with the production build of your app.
+
+2. Deploy the contents of the `build` directory to your preferred hosting service.
+
+## Contact
+
+For any inquiries or issues, please contact [desimone.mariano@gmail.com](mailto:desimone.mariano@gmail.com).
