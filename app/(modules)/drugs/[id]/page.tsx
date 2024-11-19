@@ -10,6 +10,8 @@ export default function DrugDetailsPage() {
   const { id } = useParams();
   const { data: drug, isLoading, error } = useDrugDetails(id as string);
 
+  console.log(id);
+
   const errorMessage = useMemo(() => error?.message, [error]);
 
   if (error) {
