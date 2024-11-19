@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import drugsData from "@/app/api/data/mock-drugs.json";
+import { TableProps } from "@/app/common/enums";
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get("limit") || "10", 10);
-    const offset = parseInt(searchParams.get("offset") || "0", 10);
-    const filter = searchParams.get("filter");
-    const search = searchParams.get("search");
+    const limit = parseInt(searchParams.get(TableProps.LIMIT) || "10", 10);
+    const offset = parseInt(searchParams.get(TableProps.OFFSET) || "0", 10);
+    const filter = searchParams.get(TableProps.FILTER);
+    const search = searchParams.get(TableProps.SEARCH);
 
     if (isNaN(limit) || isNaN(offset)) {
       return NextResponse.json(
@@ -29,7 +30,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // Paginate the filtered data
     const paginatedData = filteredData.slice(offset, offset + limit);
 
     return NextResponse.json(

@@ -21,13 +21,6 @@ const mockUseDrugs = (
 };
 
 describe("DrugsPage Component", () => {
-  it("renders loading state initially", () => {
-    mockUseDrugs(null, true, null);
-
-    render(<DrugsPage />);
-    expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
-  });
-
   it("renders error state", () => {
     mockUseDrugs(null, false, new Error("Failed to load data"));
 

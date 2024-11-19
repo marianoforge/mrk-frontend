@@ -1,31 +1,24 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useDrugs } from "@/app/(modules)/drugs/hooks/useDrugs";
 import DrugsTable from "@/app/(modules)/drugs/components/DrugsTable";
 import { calculatePagination } from "@/app/(modules)/drugs/utils/paginationUtils";
 import styles from "./DrugsPage.module.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Drug } from "./types";
 
 export default function DrugsPage() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<string | null>(null);
   const [sortField, setSortField] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
-  const [search, setSearch] = useState<string | null>(null); // State for search term
+  const [search, setSearch] = useState<string | null>(null);
+  const [filteredData, setFilteredData] = useState<Drug[]>([]);
 
   const limit = 5;
-  const offset = useMemo(() => (page - 1) * limit, [page]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (search !== null) {
-        setSearch(search);
-      }
-    }, 300);
-    return () => clearTimeout(timeout);
-  }, [search]);
+  const offset = (page - 1) * limit;
 
   const { data, isLoading, error } = useDrugs({
     limit,
@@ -33,17 +26,28 @@ export default function DrugsPage() {
     sortField,
     sortOrder,
     filter,
-    search,
   });
 
-  const resetFilters = useCallback(() => {
+  useEffect(() => {
+    if (data) {
+      const filtered = data.data.filter((drug: Drug) =>
+        drug.name.toLowerCase().includes(search?.toLowerCase() || "")
+      );
+      setFilteredData(filtered);
+    }
+  }, [data, search]);
+
+  const resetFilters = () => {
     setFilter(null);
     setSortField(null);
     setSortOrder(null);
     setPage(1);
-  }, []);
+    setSearch(null);
+  };
 
-  const totalPages = data ? calculatePagination(data.total, limit) : 1;
+  const totalPages = filteredData
+    ? calculatePagination(filteredData.length, limit)
+    : 1;
 
   if (error) return <p className={styles.errorText}>Failed to load data.</p>;
 
@@ -54,7 +58,7 @@ export default function DrugsPage() {
         <Skeleton height={50} count={12} />
       ) : (
         <DrugsTable
-          drugs={data?.data || []}
+          drugs={filteredData.slice(offset, offset + limit)}
           totalPages={totalPages}
           setCurrentPage={setPage}
           currentPage={page}

@@ -1,4 +1,5 @@
 import { UseDrugsOptions, UseDrugsResponse } from "@/app/(modules)/drugs/types";
+import { TableProps } from "@/app/common/enums";
 import { useQuery } from "@tanstack/react-query";
 
 export const useDrugs = ({
@@ -16,14 +17,14 @@ export const useDrugs = ({
     ],
     queryFn: async () => {
       const params = new URLSearchParams({
-        limit: limit.toString(),
-        offset: offset.toString(),
+        [TableProps.LIMIT]: limit.toString(),
+        [TableProps.OFFSET]: offset.toString(),
       });
 
-      if (sortField) params.append("sortField", sortField);
-      if (sortOrder) params.append("sortOrder", sortOrder);
-      if (filter) params.append("filter", filter);
-      if (search) params.append("search", search);
+      if (sortField) params.append(TableProps.SORT_FIELD, sortField);
+      if (sortOrder) params.append(TableProps.SORT_ORDER, sortOrder);
+      if (filter) params.append(TableProps.FILTER, filter);
+      if (search) params.append(TableProps.SEARCH, search);
 
       const res = await fetch(`/api/drugs?${params.toString()}`);
       if (!res.ok) {

@@ -24,5 +24,9 @@ export default function DrugDetailsPage() {
     );
   }
 
-  return <DrugDetails drug={drug ?? null} isLoading={isLoading} />;
+  return (
+    <div className={styles.container}>
+      <DrugDetails drug={drug ?? null} isLoading={isLoading} />
+    </div>
+  );
 }

@@ -1,5 +1,5 @@
 .container {
-  @apply flex items-center justify-center h-screen;
+  @apply p-8 max-w-screen-2xl mx-auto;
 }
 
 .loadingText {

@@ -8,6 +8,7 @@ import Input from "@/app/common/components/Input";
 import Select from "@/app/common/components/Select";
 import Button from "@/app/common/components/Button";
 import StatusChip from "@/app/common/components/StatusChip";
+import { SortOrder, Status } from "@/app/common/enums";
 
 export default function DrugsTable({
   drugs,
@@ -46,16 +47,21 @@ export default function DrugsTable({
   const handleSort = useCallback(
     (field: string) => {
       if (sortField === field) {
-        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        setSortOrder(
+          sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC
+        );
       } else {
         setSortField(field);
-        setSortOrder("asc");
+        setSortOrder(SortOrder.ASC);
       }
     },
     [sortField, sortOrder, setSortField, setSortOrder]
   );
 
-  const statusOptions = useMemo(() => ["Approved", "In Development"], []);
+  const statusOptions = useMemo(
+    () => [Status.APPROVED, Status.IN_DEVELOPMENT],
+    []
+  );
 
   return (
     <div className={styles.container}>
@@ -95,11 +101,14 @@ export default function DrugsTable({
           <thead>
             <tr className={styles.tableHead}>
               <th className={styles.cell} onClick={() => handleSort("name")}>
-                Name {sortField === "name" && (sortOrder === "asc" ? "↑" : "↓")}
+                Name{" "}
+                {sortField === "name" &&
+                  (sortOrder === SortOrder.ASC ? "↑" : "↓")}
               </th>
               <th className={styles.cell} onClick={() => handleSort("status")}>
                 Status{" "}
-                {sortField === "status" && (sortOrder === "asc" ? "↑" : "↓")}
+                {sortField === "status" &&
+                  (sortOrder === SortOrder.ASC ? "↑" : "↓")}
               </th>
               <th className={styles.cell}>Description</th>
               <th className={styles.cell}>Side Effects</th>
