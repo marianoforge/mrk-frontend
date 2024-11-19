@@ -8,15 +8,18 @@ import styles from "./DrugsPage.module.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Drug } from "./types";
+import { SortOrder } from "@/app/common/enums";
 
 export default function DrugsPage() {
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState<string | null>(null); // Actual filter for the query
+  const [filter, setFilter] = useState<string | null>(null);
   const [sortField, setSortField] = useState<string | null>(null);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
+  const [sortOrder, setSortOrder] = useState<
+    SortOrder.ASC | SortOrder.DESC | null
+  >(null);
   const [search, setSearch] = useState<string | null>(null);
   const [filteredData, setFilteredData] = useState<Drug[]>([]);
-  const [isFiltered, setIsFiltered] = useState(false); // Flag for filter application
+  const [isFiltered, setIsFiltered] = useState(false);
 
   const limit = 5;
   const offset = (page - 1) * limit;

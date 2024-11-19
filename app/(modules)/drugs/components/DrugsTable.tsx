@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./DrugsTable.module.css"; // Importa el CSS Module
+import styles from "./DrugsTable.module.css";
 import { DrugsTableProps } from "@/app/(modules)/drugs/types";
 import PaginationControls from "./PaginationControls";
 import { useRef, useEffect, useState, useMemo, useCallback } from "react";

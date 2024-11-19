@@ -34,6 +34,6 @@ export const useDrugs = ({
       return res.json();
     },
     staleTime: 1000 * 60 * 5,
-    enabled, // Usar el nuevo parámetro para controlar la ejecución
+    enabled,
   });
 };
